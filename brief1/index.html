@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+     
+    
+    <title>Document</title>
+</head>
+<body>
+    <header class="flex items-center justify-between p-6">
+
+       
+        
+        <h1 class="text-2xl font-bold">
+            FlowBoard
+        </h1>
+        <nav class="flex items-center gap-4">
+            <a href="#">Board</a>
+            <a href="#">Tasks</a>
+            <a href="#">Team</a>
+        </nav>
+    </header>
+    <main>
+        <div>
+            <div class="board-header flex flex-col gap-6 mb-8">
+                <div class="board-title">
+                    <h2 class="text-2xl font-bold text-gray-800">
+                        My board
+                    </h2>
+                    <p class="text-sm text-gray-500 mt-2">
+                        Manage your tasks with a simple Kanban board.
+                    </p>
+                </div>
+                <div class="board-actions flex flex-wrap items-center gap-4">
+                    <input type="search" id="serchboad" placeholder="Search tasks..."
+                    class="border border-gray-300 rounded-lg px-4 py-2">
+                    <select id="priorityFilter" class="border border-gray-300 rounded-lg px-4 py-2">
+                        <option value="" >All priorities</option>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+                    <select id="assigneesFiltre" class="border border-gray-300 rounded-lg px-4 py-2">
+                        <option value="">All assignees</option>
+                    </select>
+                    <button id="nouvecart" class="bg-blue-300 text-white px-4 py-2 rounded-lg ">
+                        + Nouvelle carte
+                    </button>
+
+
+                </div>
+            </div>
+
+            <div id="kanban-board" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="board-afaire  bg-blue-100 p-5 rounded-xl border ">
+
+                </div>
+                <div class="board-encour bg-amber-100 p-5 rounded-xl border ">
+
+                </div>
+                <div class="board-terminer  bg-green-100 p-5 rounded-xl border ">
+
+                </div>
+
+            </div>
+    
+
+
+        </div>
+    </main>
+    <script src="js/ui.js"></script>
+    <script src="js/api.js"></script>
+    
+</body>
+</html>
+
+
+
