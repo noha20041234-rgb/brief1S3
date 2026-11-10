@@ -55,24 +55,33 @@
             </div>
 
             <div id="kanban-board" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="board-afaire  bg-blue-100 p-5 rounded-xl border ">
+
+                <div class="board-afaire      bg-blue-100 p-5 rounded-xl border ">
+                    <h3>A faire</h3>
+                    <div id="todoCards"></div>
 
                 </div>
-                <div class="board-encour bg-amber-100 p-5 rounded-xl border ">
+                <div class="board-encour      bg-amber-100 p-5 rounded-xl border ">
+                    <h3>En cours</h3>
+                    <div id="progressCards"></div>
+                    
 
                 </div>
-                <div class="board-terminer  bg-green-100 p-5 rounded-xl border ">
+                <div class="board-terminer    bg-green-100 p-5 rounded-xl border ">
+                    <h3>Termine</h3>
+                    <div id="doneCards"></div>
 
                 </div>
 
             </div>
+            
     
 
 
         </div>
     </main>
-    <script src="js/ui.js"></script>
-    <script src="js/api.js"></script>
+    <script type="module" src="js/ui.js"></script>
+    
     
 </body>
 </html>
