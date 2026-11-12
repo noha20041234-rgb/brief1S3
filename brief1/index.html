@@ -55,6 +55,19 @@
 
                 </div>
             </div>
+            <div id="loading" class="flex justify-center gap-2 p-8">
+                <span class="w-3 h-3 bg-blue-600 rounded-full animate-bounce"></span>
+                <span class="w-3 h-3 bg-blue-600 rounded-full animate-bounce [animation-delay:150ms]"></span>
+                <span class="w-3 h-3 bg-blue-600 rounded-full animate-bounce [animation-delay:300ms]"></span>
+            </div>
+            <div id="error" class="hidden text-center p-6">
+                <p class="text-red-500 mb-3">
+                    Impossible de charger les cartes.
+                </p>
+                <button id="retry" class="bg-blue-600 text-white px-4 py-2 rounded-lg">
+                    Réessayer
+                </button>
+            </div>
 
             <div id="kanban-board" class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
@@ -76,7 +89,8 @@
                 </div>
 
             </div>
-            <div id="modalCard" class="hidden fixed inset-0 bg-black/40 items-center justify-center p-4 overflow-y-auto">
+            <div id="modalCard"
+                class="hidden fixed inset-0 bg-black/40 items-center justify-center p-4 overflow-y-auto">
                 <form id="formCard" class="bg-white p-6 rounded-xl w-full max-w-md">
 
 
@@ -95,6 +109,14 @@
                     <textarea id="description" placeholder="Description"
                         class="w-full border rounded-lg p-2 mt-3 mb-1"></textarea>
                     <span id="descError" class="text-red-500 text-sm"></span>
+                    <label for="tags" class="block mt-3 mb-1 font-medium">
+                        Tags
+                    </label>
+
+                    <input type="text" id="tags" placeholder="Ex: frontend, api, design"
+                        class="w-full border rounded-lg p-2">
+
+                    <span id="tagsError" class="text-red-500 text-sm"></span>
                     <label for="priority" class="block mt-3 mb-1 font-medium">
                         Priority
                     </label>

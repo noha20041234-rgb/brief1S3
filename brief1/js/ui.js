@@ -5,25 +5,47 @@ import { getcards } from "./api.js"
  const state={
    cards:[]
  }
-getcards()
-.then(data => {
-    state.cards=data;
-const todoCards=state.cards.filter(card =>{
-    return card.status ==="todo"
-})
-const progressCards=state.cards.filter(card =>{
-    return card.status ==="in-progress"
-})
-const doneCards=state.cards.filter(card =>{
-    return card.status==="done"
-})
+ const error = document.getElementById("error");
+ const loading = document.getElementById("loading");
+ const board = document.getElementById("kanban-board");
+ const retry = document.getElementById("retry");
 
-    afficherCards(todoCards,todo);
-    afficherCards(progressCards,progress);
-    afficherCards(doneCards,done);
+function loadCards() {
+    loading.classList.remove("hidden");
+    error.classList.add("hidden");
+    board.classList.add("hidden");
 
-    // console.log(data);
+    getcards()
+    .then(data => {
+        state.cards = data;
+
+        refreshBoard();
+
+        loading.classList.add("hidden");
+        board.classList.remove("hidden");
+    })
+    .catch(() => {
+        loading.classList.add("hidden");
+        error.classList.remove("hidden");
+    });
+}
+retry.addEventListener("click", () => {
+    loadCards();
 });
+loadCards();
+
+
+function refreshBoard() {
+    const todoCards = state.cards.filter(card => card.status === "todo");
+    const progressCards = state.cards.filter(card => card.status === "in-progress");
+    const doneCards = state.cards.filter(card => card.status === "done");
+
+    afficherCards(todoCards, todo);
+    afficherCards(progressCards, progress);
+    afficherCards(doneCards, done);
+}
+
+
 const todo=document.getElementById("todoCards");
 const progress=document.getElementById("progressCards");
 const done=document.getElementById("doneCards");
@@ -64,6 +86,7 @@ function afficherCards(cards, container){
 }
 
 
+
 const btnajout = document.getElementById("nouvecart");
 const modale = document.getElementById("modalCard");
 const anullerBtn = document.getElementById("closeModal");
@@ -91,6 +114,11 @@ const priority = document.getElementById("priority");
 const assignee = document.getElementById("assignee");
 const status = document.getElementById("status");
 const dateDue = document.getElementById("dueDate");
+const tags = document.getElementById("tags");
+
+
+let tagValues = [];
+
 
 // Messages d'erreur
 const titleError = document.getElementById("titleError");
@@ -124,7 +152,7 @@ form.addEventListener("submit", (event) => {
         titleError.textContent = "Title obligatoire";
         valide=false;
     }else if(!titleRegex.test(titr.value.trim())){
-        titleError.textContent = "Title obligatoire";
+        titleError.textContent = "Title contient des caractères invalides";
         valide=false;
 
     }
@@ -163,7 +191,22 @@ form.addEventListener("submit", (event) => {
     }else if(selectdate < today){
         dudateError.textContent="Date ne peut pas être dans le passé";
         valide=false;
+    }if (valide) {
+
+    tagValues = [];
+    const allTags = tags.value.split(",");
+
+    for (let tag of allTags) {
+        if (tag.trim() !== "") {
+            tagValues.push(tag.trim());
+        }
     }
+
+    addNewCart();
+    refreshBoard();
+
+    // console.log(state.cards);
+}
 
     
     // alert("Formulaire valide !");
@@ -171,21 +214,19 @@ form.addEventListener("submit", (event) => {
 
 
 
-// const titr = document.getElementById("inputTetre");
-// const descri = document.getElementById("description");
-// const priority = document.getElementById("priority");
-// const assignee = document.getElementById("assignee");
-// const status = document.getElementById("status");
-// const dateDue = document.getElementById("dueDate");
-
-// function addNewCart(){
-
-//     state.cards.push({
-//         title: titr.value ,
-//         description: descri.value ,
 
 
+function addNewCart(){
 
-//     })
-
-// }                                      
+    state.cards.push({
+        title: titr.value.trim(),
+        description: descri.value.trim(),
+        priority: priority.value,
+        assignee: assignee.value.trim(),
+        status: status.value,
+        dueDate: dateDue.value,
+        tags: tagValues,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+    });
+}
