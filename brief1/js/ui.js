@@ -14,7 +14,6 @@ function loadCards() {
     loading.classList.remove("hidden");
     error.classList.add("hidden");
     board.classList.add("hidden");
-
     getcards()
     .then(data => {
         state.cards = data;
@@ -66,7 +65,7 @@ function afficherCards(cards, container){
         //priority
         const priority=document.createElement("p")
         priority.textContent="priority"+ " :"  +" "+    card.priority;
-        //ass
+        //assignee
         const assignee =document.createElement("p")
         assignee.textContent="assignee"+ " :"  +" "+    card.assignee;
         //date
@@ -209,7 +208,7 @@ form.addEventListener("submit", (event) => {
 }
 
     
-    // alert("Formulaire valide !");
+    
 });
 
 
@@ -230,3 +229,34 @@ function addNewCart(){
         updatedAt: new Date().toISOString()
     });
 }
+
+
+//filter
+const inpySerch = document.getElementById("serchboad");
+
+inpySerch.addEventListener("input", () => {
+    const searchValue = inpySerch.value;
+
+    getcards(searchValue)
+        .then(data => {
+            state.cards = data;
+            refreshBoard();
+        })
+        .catch(error => {
+            console.log(error);
+        });
+});
+
+ const selectPriorit=document.getElementById("priorityFilter");
+ selectPriorit.addEventListener("change",()=>{
+    const prorityValue=selectPriorit.value;
+    getcards("" , prorityValue)
+        .then(data => {
+            state.cards = data;
+            refreshBoard();
+        })
+        .catch(error => {
+            console.log(error);
+        });
+ })
+ 
