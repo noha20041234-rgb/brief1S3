@@ -1,5 +1,19 @@
-export function getcards() {
-    return fetch("https://flowboard-api-virid.vercel.app/cards", {
+export function getcards(title = "", priority = "", assignee = "") {
+    let param = new URLSearchParams();
+
+    if (title !== "") {
+        param.append("q", title);
+    }
+
+    if (priority !== "") {
+        param.append("priority", priority);
+    }
+
+    if (assignee !== "") {
+        param.append("assignee", assignee);
+    }
+
+    return fetch("https://flowboard-api-virid.vercel.app/cards?" + param, {
         headers: {
             "X-Workspace": "public"
         }
@@ -10,9 +24,6 @@ export function getcards() {
         }
 
         return response.json();
-    })
-    .then(data => {
-        return data;
     })
     .catch(error => {
         console.log("error", error);
