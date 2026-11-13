@@ -41,9 +41,9 @@
                         class="border border-gray-300 rounded-lg px-4 py-2">
                     <select id="priorityFilter" class="border border-gray-300 rounded-lg px-4 py-2">
                         <option value="">All priorities</option>
-                        <option value="High">High</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Low">Low</option>
+                        <option value="high">high</option>
+                        <option value="medium">medium</option>
+                        <option value="low">low</option>
                     </select>
                     <select id="assigneesFiltre" class="border border-gray-300 rounded-lg px-4 py-2">
                         <option value="">All assignees</option>
@@ -73,17 +73,21 @@
 
                 <div class="board-afaire      bg-blue-100 p-5 rounded-xl border ">
                     <h3>A faire</h3>
+                    <span id="todoCount">0</span>
                     <div id="todoCards"></div>
 
                 </div>
                 <div class="board-encour      bg-amber-100 p-5 rounded-xl border ">
                     <h3>En cours</h3>
+                    <span id="encoursCount">0</span>
                     <div id="progressCards"></div>
 
 
                 </div>
                 <div class="board-terminer    bg-green-100 p-5 rounded-xl border ">
                     <h3>Termine</h3>
+                    <span id="terminerCount">0</span>
+                    
                     <div id="doneCards"></div>
 
                 </div>
