@@ -75,11 +75,11 @@ function afficherCards(cards, container) {
         const description = document.createElement("p");
         description.textContent = "description" + " :" + " " + card.description;
         //priority
-        const priority = document.createElement("p")
-        priority.textContent = "priority" + " :" + " " + card.priority;
+        const priority=document.createElement("p")
+        priority.textContent="priority"+ " :"  +" "+    card.priority;
         //assignee
-        const assignee = document.createElement("p")
-        assignee.textContent = "assignee" + " :" + " " + card.assignee;
+        const assignee =document.createElement("p")
+        assignee.textContent="assignee"+ " :"  +" "+    card.assignee;
         //date
         const datedue = document.createElement("p");
         datedue.textContent = "dueDate" + ":" + " " + card.dueDate;
