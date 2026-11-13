@@ -66,7 +66,7 @@ function afficherCards(cards, container){
         //priority
         const priority=document.createElement("p")
         priority.textContent="priority"+ " :"  +" "+    card.priority;
-        //ass
+        //assignee
         const assignee =document.createElement("p")
         assignee.textContent="assignee"+ " :"  +" "+    card.assignee;
         //date
