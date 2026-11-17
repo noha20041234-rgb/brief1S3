@@ -96,6 +96,7 @@
             <div id="modalCard"
                 class="hidden fixed inset-0 bg-black/40 items-center justify-center p-4 overflow-y-auto">
                 <form id="formCard" class="bg-white p-6 rounded-xl w-full max-w-md">
+                    <input class="hidden" id="cardId">
 
 
 
@@ -156,6 +157,9 @@
                     <div class="flex gap-3 mt-4">
                         <button id="submitter" type="submit"
                             class="bg-blue-600 text-white px-4 py-2 rounded-lg">Ajouter</button>
+                            <button id="submitter" type="submit"
+                            class=" hidden text-white px-4 py-2 rounded-lg">Edit</button>
+                            
                         <button type="button" id="closeModal" class="bg-gray-200 px-4 py-2 rounded-lg">Annuler</button>
                     </div>
 
@@ -167,7 +171,7 @@
 
         </div>
     </main>
-    <script type="module" src="js/ui.js"></script>
+    <script type="module" src="./src/main.js"></script>
 
 
 </body>

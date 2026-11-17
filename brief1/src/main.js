@@ -1,0 +1,224 @@
+
+
+
+
+import { getcards, createCard } from "./api.js";
+
+import { state } from "./store.js";
+
+import {
+    refreshBoard,
+    renderAssignees,
+    openCardModal,
+    closeCardModal,
+    readCardForm,
+    validateCardForm,
+    resetCardForm,
+    showLoading,
+    hideLoading,
+    showError,
+    hideError,
+    showBoard
+} from "./ui.js";
+
+
+
+
+const retry = document.getElementById("retry");
+
+const btnajout = document.getElementById("nouvecart");
+
+const anullerBtn = document.getElementById("closeModal");
+
+const form = document.getElementById("formCard");
+
+const searchInput = document.getElementById("serchboad");
+
+const selectPriority = document.getElementById("priorityFilter");
+
+const selectAssignee = document.getElementById("assigneesFiltre");
+const board=document.getElementById("kanban-board");
+
+
+
+
+async function loadCards() {
+
+    showLoading();
+    hideError();
+
+    try {
+
+        const data = await getcards();
+
+        state.cards = data;
+
+        refreshBoard(state.cards);
+
+        renderAssignees(state.cards);
+
+        showBoard();
+
+    } catch (error) {
+
+        console.error("Load cards error:", error);
+
+        showError();
+
+    } finally {
+
+        hideLoading();
+
+    }
+
+}
+
+
+
+
+async function addNewCard() {
+
+    if (!validateCardForm()) {
+        return;
+    }
+
+    const newCard = readCardForm();
+
+    try {
+
+        await createCard(newCard);
+
+        await loadCards();
+
+        resetCardForm();
+
+        closeCardModal();
+
+    } catch (error) {
+
+        console.error("Add card error:", error);
+
+    }
+
+}
+
+
+
+
+async function filterCards() {
+
+    const searchValue = searchInput.value.trim();
+
+    const priorityValue = selectPriority.value;
+
+    const assigneeValue = selectAssignee.value;
+
+    try {
+
+        const data = await getcards(
+            searchValue,
+            priorityValue,
+            assigneeValue
+        );
+
+        state.cards = data;
+
+        refreshBoard(state.cards);
+
+    } catch (error) {
+
+        console.error("Filter cards error:", error);
+
+    }
+
+}
+
+
+
+
+// Retry button
+
+retry.addEventListener("click", () => {
+
+    loadCards();
+
+});
+
+
+// Open modal
+
+btnajout.addEventListener("click", () => {
+
+    openCardModal();
+
+});
+
+
+// Close modal
+
+anullerBtn.addEventListener("click", () => {
+
+    closeCardModal();
+
+});
+
+
+// Submit form
+
+form.addEventListener("submit", async (event) => {
+
+    event.preventDefault();
+
+    await addNewCard();
+
+});
+
+
+// Search
+
+searchInput.addEventListener("input", () => {
+
+    filterCards();
+
+});
+
+
+// Priority filter
+
+selectPriority.addEventListener("change", () => {
+
+    filterCards();
+
+});
+
+
+// Assignee filter
+
+selectAssignee.addEventListener("change", () => {
+
+    filterCards();
+
+});
+
+
+
+
+
+function init() {
+
+    loadCards();
+
+}
+
+init();
+board.addEventListener("click",(event)=>{
+    if(event.target.classList.contains("edit-button")){
+        // const id=event.target.dataset.id;
+        // const card = state.cards.find(card => card.id == id);
+
+        // fillCardForm(card);
+        // openCardModal();
+        // console.log(id)
+    }
+})
+
