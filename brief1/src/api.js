@@ -102,3 +102,27 @@ export async function updateCard(id,cardData) {
     }
     
 }
+export async function updateCardStatus(id,status) {
+    try{
+    const response=await axios.patch(
+        "https://flowboard-api-virid.vercel.app/cards/" +id,  { status: status },
+            {
+                headers: {
+                    "X-Workspace": "public",
+                    
+                    
+                },
+                params: {
+            password: "1234"
+        }
+
+            }
+
+    );
+    return response.data;
+    }catch(error){
+        console.log("Update status error:", error);
+        throw error;
+    }
+}
+    
