@@ -21,15 +21,10 @@ export async function getcards(title = "", priority = "", assignee = "") {
             {
                 headers: {
                     "X-Workspace": "public",
-                    
-
-                    
-
                 },
                 params: object
             }
         );
-
         return response.data;
 
     } catch (error) {
@@ -37,7 +32,6 @@ export async function getcards(title = "", priority = "", assignee = "") {
         throw error;
     }
 }
-
 export async function createCard(card) {
 
     try {

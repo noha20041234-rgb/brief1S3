@@ -2,7 +2,7 @@
 
 
 
-import { getcards, createCard, getcardId, updateCard } from "./api.js";
+import { getcards, createCard, getcardId, updateCard, updateCardStatus } from "./api.js";
 
 import { state } from "./store.js";
 
@@ -254,7 +254,7 @@ board.addEventListener("click", async (event) => {
         if (!card) return;
 
         const statuses = ["todo", "in-progress", "done"];
-       
+
 
         let newIndex = statuses.indexOf(card.status);
 
@@ -268,7 +268,16 @@ board.addEventListener("click", async (event) => {
 
         const newStatus = statuses[newIndex];
 
-        console.log("New status:", newStatus);
+        try {
+            await updateCardStatus(id, newStatus);
+
+            card.status = newStatus;
+
+            refreshBoard(state.cards);
+
+        } catch (error) {
+            console.error("Move card error:", error);
+        }
     }
 });
 
