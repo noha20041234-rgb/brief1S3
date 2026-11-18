@@ -351,20 +351,30 @@ export function showBoard() {
     board.classList.remove("hidden");
 
 }
-// export function fillCardForm(card) {
-//     document.getElementById("inputTetre").value = card.title;
-//     document.getElementById("description").value = card.description;
-//     document.getElementById("priority").value = card.priority;
-//     document.getElementById("assignee").value = card.assignee;
-//     document.getElementById("status").value = card.status;
-//     document.getElementById("dueDate").value = card.dueDate;
+export function fillCardForm(card) {
+    document.getElementById("inputTetre").value = card.title;
+    document.getElementById("description").value = card.description;
+    document.getElementById("priority").value = card.priority;
+    document.getElementById("assignee").value = card.assignee;
+    document.getElementById("status").value = card.status;
+    document.getElementById("dueDate").value = card.dueDate;
 
-//     if (card.tags) {
-//         document.getElementById("tags").value = card.tags.join(", ");
-//     } else {
-//         document.getElementById("tags").value = "";
-//     }
+    if (card.tags) {
+        document.getElementById("tags").value = card.tags.join(", ");
+    } else {
+        document.getElementById("tags").value = "";
+    }
 
-//     document.getElementById("cardId").value = card.id;
-// }
+    document.getElementById("cardId").value = card.id;
+}
+
+
+export function switBtnedit(){
+    document.getElementById("Btnajou").classList.add("hidden");
+    document.getElementById("editBtn").classList.remove("hidden");
+}
+export function switBtnajou(){
+    document.getElementById("Btnajou").classList.remove("hidden");
+    document.getElementById("editBtn").classList.add("hidden");
+}
 

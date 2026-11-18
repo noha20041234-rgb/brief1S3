@@ -2,7 +2,7 @@
 
 
 
-import { getcards, createCard } from "./api.js";
+import { getcards, createCard,getcardId,updateCard} from "./api.js";
 
 import { state } from "./store.js";
 
@@ -18,7 +18,10 @@ import {
     hideLoading,
     showError,
     hideError,
-    showBoard
+    showBoard,
+    fillCardForm,
+    switBtnedit,
+    switBtnajou
 } from "./ui.js";
 
 
@@ -38,6 +41,7 @@ const selectPriority = document.getElementById("priorityFilter");
 
 const selectAssignee = document.getElementById("assigneesFiltre");
 const board=document.getElementById("kanban-board");
+
 
 
 
@@ -89,6 +93,7 @@ async function addNewCard() {
         await createCard(newCard);
 
         await loadCards();
+        switBtnajou();
 
         resetCardForm();
 
@@ -211,14 +216,34 @@ function init() {
 }
 
 init();
-board.addEventListener("click",(event)=>{
-    if(event.target.classList.contains("edit-button")){
-        // const id=event.target.dataset.id;
-        // const card = state.cards.find(card => card.id == id);
 
-        // fillCardForm(card);
-        // openCardModal();
-        // console.log(id)
+board.addEventListener("click", async (event) => {
+
+    if (event.target.classList.contains("edit-button")) {
+        
+        const id = event.target.dataset.id;
+
+        try {
+            const card = await getcardId(id);
+
+             console.log("Card received:", card);
+
+            fillCardForm(card);
+            switBtnedit();
+            openCardModal();
+
+        } catch (error) {
+            console.log("Edit error:", error);
+        }
     }
-})
+});
+form.addEventListener("submit", async (event) => {
+    event.preventDefault();
 
+    const id = document.getElementById("cardId").value;
+    const cardData = readCardForm();
+    await updateCard(id,cardData);
+
+    console.log("ID:", id);
+    console.log("New data:", cardData);
+});
