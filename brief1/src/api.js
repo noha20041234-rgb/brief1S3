@@ -97,7 +97,7 @@ export async function updateCard(id,cardData) {
         );
         return response.data;
     }catch(error){
-        console.log("Get card error:", error);
+        console.log("Update card error:", error);
         throw error;
     }
     

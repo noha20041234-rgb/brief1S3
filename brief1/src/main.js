@@ -171,11 +171,15 @@ anullerBtn.addEventListener("click", () => {
 // Submit form
 
 form.addEventListener("submit", async (event) => {
-
     event.preventDefault();
 
-    await addNewCard();
+    const id = document.getElementById("cardId").value;
 
+    if (id) {
+        await editCard(id);
+    } else {
+        await addNewCard();
+    }
 });
 
 
@@ -237,13 +241,57 @@ board.addEventListener("click", async (event) => {
         }
     }
 });
-form.addEventListener("submit", async (event) => {
-    event.preventDefault();
+// form.addEventListener("submit", async (event) => {
+//     event.preventDefault();
+//     if(!validateCardForm()){
+//         return;
+//     }
 
-    const id = document.getElementById("cardId").value;
+//     const id = document.getElementById("cardId").value;
+//     const cardData = readCardForm();
+//     await updateCard(id,cardData);
+//     const index=state.cards.findIndex(card=> card.id==id);
+//     if(index !==-1){
+//         state.cards[index]={
+//             //Spread Operator
+//             ...state.cards[index],
+//             ...cardData
+
+//            }
+//         }
+//         refreshBoard(state.cards);
+//         closeCardModal();
+// switBtnajou();
+
+//     // console.log("ID:", id);
+//     // console.log("New data:", cardData);
+//     // console.log(state.cards);
+    
+// });
+async function editCard(id){
+    if(!validateCardForm()){
+        return;
+    }
+
+   
     const cardData = readCardForm();
     await updateCard(id,cardData);
+    const index=state.cards.findIndex(card=> card.id==id);
+    if(index !==-1){
+        state.cards[index]={
+            //Spread Operator
+            ...state.cards[index],
+            ...cardData
 
-    console.log("ID:", id);
-    console.log("New data:", cardData);
-});
+           }
+        }
+        refreshBoard(state.cards);
+        closeCardModal();
+switBtnajou();
+
+    // console.log("ID:", id);
+    // console.log("New data:", cardData);
+    // console.log(state.cards);
+    
+
+}
