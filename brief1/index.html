@@ -87,7 +87,7 @@
                 <div class="board-terminer    bg-green-100 p-5 rounded-xl border ">
                     <h3>Termine</h3>
                     <span id="terminerCount">0</span>
-                    
+
                     <div id="doneCards"></div>
 
                 </div>
@@ -96,6 +96,8 @@
             <div id="modalCard"
                 class="hidden fixed inset-0 bg-black/40 items-center justify-center p-4 overflow-y-auto">
                 <form id="formCard" class="bg-white p-6 rounded-xl w-full max-w-md">
+
+                    <input class="hidden" id="cardId">
 
 
 
@@ -154,8 +156,14 @@
 
                     <span id="dateError" class="text-red-500 text-sm"></span>
                     <div class="flex gap-3 mt-4">
-                        <button id="submitter" type="submit"
-                            class="bg-blue-600 text-white px-4 py-2 rounded-lg">Ajouter</button>
+                        <button id="Btnajou" type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg">
+                            Ajouter
+                        </button>
+
+                        <button id="editBtn" type="submit" class="hidden bg-green-600 text-white px-4 py-2 rounded-lg">
+                            Edit
+                        </button>
+
                         <button type="button" id="closeModal" class="bg-gray-200 px-4 py-2 rounded-lg">Annuler</button>
                     </div>
 
@@ -167,7 +175,7 @@
 
         </div>
     </main>
-    <script type="module" src="js/ui.js"></script>
+    <script type="module" src="./src/main.js"></script>
 
 
 </body>
