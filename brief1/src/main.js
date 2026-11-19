@@ -260,6 +260,7 @@ board.addEventListener("click", async (event) => {
 
         if (btn.classList.contains("move-left")) {
             newIndex--;
+            
         } else {
             newIndex++;
         }
