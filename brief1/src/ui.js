@@ -24,7 +24,7 @@ function renderCards(cards, container) {
     container.innerHTML = "";
 
     cards.forEach(card => {
-        
+
 
         const cardElement = document.createElement("div");
         cardElement.className = "bg-white p-4 rounded-xl shadow-sm border border-gray-200 mb-3";
@@ -57,13 +57,28 @@ function renderCards(cards, container) {
             tags.appendChild(span);
 
         });
-        const btnmode=document.createElement("button");
-        btnmode.textContent="Modifier";
-        btnmode.className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium"
-        btnmode.dataset.id=card.id;
+        const btnmode = document.createElement("button");
+        btnmode.textContent = "Modifier";
+        btnmode.className = "bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium"
+        btnmode.dataset.id = card.id;
         btnmode.classList.add("edit-button");
+       
+        const btnleft = document.createElement("button");
+        btnleft.textContent = "←";
+        btnleft.className = "bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium";
+        btnleft.classList.add("move-left");
+        btnleft.dataset.id = card.id;
+
         
-    
+        const btnright = document.createElement("button");
+        btnright.textContent = "→";
+        btnright.className ="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium" 
+        btnright.classList.add("move-right");
+        btnright.dataset.id = card.id;
+
+
+
+
 
         cardElement.append(
             title,
@@ -72,7 +87,9 @@ function renderCards(cards, container) {
             assignee,
             dueDate,
             tags,
-            btnmode
+            btnmode,
+            btnright,
+            btnleft
         );
 
         container.appendChild(cardElement);
@@ -369,11 +386,11 @@ export function fillCardForm(card) {
 }
 
 
-export function switBtnedit(){
+export function switBtnedit() {
     document.getElementById("Btnajou").classList.add("hidden");
     document.getElementById("editBtn").classList.remove("hidden");
 }
-export function switBtnajou(){
+export function switBtnajou() {
     document.getElementById("Btnajou").classList.remove("hidden");
     document.getElementById("editBtn").classList.add("hidden");
 }

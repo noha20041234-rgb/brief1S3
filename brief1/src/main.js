@@ -2,7 +2,7 @@
 
 
 
-import { getcards, createCard,getcardId,updateCard} from "./api.js";
+import { getcards, createCard, getcardId, updateCard, updateCardStatus } from "./api.js";
 
 import { state } from "./store.js";
 
@@ -40,7 +40,7 @@ const searchInput = document.getElementById("serchboad");
 const selectPriority = document.getElementById("priorityFilter");
 
 const selectAssignee = document.getElementById("assigneesFiltre");
-const board=document.getElementById("kanban-board");
+const board = document.getElementById("kanban-board");
 
 
 
@@ -224,13 +224,13 @@ init();
 board.addEventListener("click", async (event) => {
 
     if (event.target.classList.contains("edit-button")) {
-        
+
         const id = event.target.dataset.id;
 
         try {
             const card = await getcardId(id);
 
-             console.log("Card received:", card);
+            console.log("Card received:", card);
 
             fillCardForm(card);
             switBtnedit();
@@ -240,7 +240,48 @@ board.addEventListener("click", async (event) => {
             console.log("Edit error:", error);
         }
     }
+
+
+
+    // Move Card
+    const btn = event.target.closest(".move-left, .move-right");
+
+    if (btn) {
+
+        const id = btn.dataset.id;
+        const card = state.cards.find(card => card.id == id);
+
+        if (!card) return;
+
+        const statuses = ["todo", "in-progress", "done"];
+
+
+        let newIndex = statuses.indexOf(card.status);
+
+        if (btn.classList.contains("move-left")) {
+            newIndex--;
+            
+        } else {
+            newIndex++;
+        }
+
+        if (newIndex < 0 || newIndex >= statuses.length) return;
+
+        const newStatus = statuses[newIndex];
+
+        try {
+            await updateCardStatus(id, newStatus);
+
+            card.status = newStatus;
+
+            refreshBoard(state.cards);
+
+        } catch (error) {
+            console.error("Move card error:", error);
+        }
+    }
 });
+
 // form.addEventListener("submit", async (event) => {
 //     event.preventDefault();
 //     if(!validateCardForm()){
@@ -266,32 +307,32 @@ board.addEventListener("click", async (event) => {
 //     // console.log("ID:", id);
 //     // console.log("New data:", cardData);
 //     // console.log(state.cards);
-    
+
 // });
-async function editCard(id){
-    if(!validateCardForm()){
+async function editCard(id) {
+    if (!validateCardForm()) {
         return;
     }
 
-   
+
     const cardData = readCardForm();
-    await updateCard(id,cardData);
-    const index=state.cards.findIndex(card=> card.id==id);
-    if(index !==-1){
-        state.cards[index]={
+    await updateCard(id, cardData);
+    const index = state.cards.findIndex(card => card.id == id);
+    if (index !== -1) {
+        state.cards[index] = {
             //Spread Operator
             ...state.cards[index],
             ...cardData
 
-           }
         }
-        refreshBoard(state.cards);
-        closeCardModal();
-switBtnajou();
+    }
+    refreshBoard(state.cards);
+    closeCardModal();
+    switBtnajou();
 
     // console.log("ID:", id);
     // console.log("New data:", cardData);
     // console.log(state.cards);
-    
+
 
 }
