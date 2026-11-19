@@ -77,6 +77,13 @@ function renderCards(cards, container) {
         btnright.dataset.id = card.id;
 
 
+        const btnSuprimer=document.createElement("button");
+        btnSuprimer.textContent="Supprimer";
+        btnSuprimer.className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium";
+        btnSuprimer.classList.add("delete-btn");
+        btnSuprimer.dataset.id=card.id;
+
+
 
 
 
@@ -89,7 +96,8 @@ function renderCards(cards, container) {
             tags,
             btnmode,
             btnright,
-            btnleft
+            btnleft,
+            btnSuprimer
         );
 
         container.appendChild(cardElement);

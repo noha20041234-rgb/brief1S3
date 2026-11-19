@@ -2,7 +2,7 @@
 
 
 
-import { getcards, createCard, getcardId, updateCard, updateCardStatus } from "./api.js";
+import { getcards, createCard, getcardId, updateCard, updateCardStatus,deleteCard } from "./api.js";
 
 import { state } from "./store.js";
 
@@ -41,6 +41,10 @@ const selectPriority = document.getElementById("priorityFilter");
 
 const selectAssignee = document.getElementById("assigneesFiltre");
 const board = document.getElementById("kanban-board");
+const deletModale = document.getElementById("deleteModal");
+const btnCanceldel = document.getElementById("cancelDelete");
+const btnConfermdel = document.getElementById("confirmDelete")
+let  selectedCardId=null;
 
 
 
@@ -260,7 +264,7 @@ board.addEventListener("click", async (event) => {
 
         if (btn.classList.contains("move-left")) {
             newIndex--;
-            
+
         } else {
             newIndex++;
         }
@@ -279,6 +283,13 @@ board.addEventListener("click", async (event) => {
         } catch (error) {
             console.error("Move card error:", error);
         }
+    }
+    const btns = event.target.closest(".delete-btn");
+
+    if (btns) {
+        selectedCardId = btns.dataset.id;
+
+        deletModale.classList.remove("hidden");
     }
 });
 
@@ -336,3 +347,7 @@ async function editCard(id) {
 
 
 }
+btnCanceldel.addEventListener("click",()=>{
+    deletModale.classList.add("hidden");
+    selectedCardId=null;
+})
